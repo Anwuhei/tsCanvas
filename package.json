@@ -1,0 +1,10 @@
+{
+  "name":"tsCanvas",
+  "version":"0.1.0",
+  "description":"",
+  "main":"main.js",
+  "dependencies": {
+    "systemjs": "^6.15.1",
+    "typescript": "^5.6.3"
+  }
+}
