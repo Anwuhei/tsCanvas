@@ -12,8 +12,7 @@ export interface IDoom3Tokenizer{
     reset():void;
     getNextToken(token:IDoom3Token):boolean;
 }
-
-export class IDoom3Token{
+class IDoom3Token{
     private _type!:ETokenType;
     private _charArr:string[]=[]
     private _val!:number;
