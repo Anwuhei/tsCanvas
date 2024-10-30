@@ -5,7 +5,7 @@ joints{
 "Body" 0 (-12.1038131714 0 79.004776001) (-0.5 -0.5 -0.5)
 }`
 let tokenizer:IDoom3Tokenizer = Doom3Factory.createDoom3Tokenizer()
-let token:IDoom3Token = tokenizer.createDoom3Token()
+let token:IDoom3Token = tokenizer.createIDoom3Token()
 tokenizer.setSource(str)
 while(tokenizer.getNextToken(token)){
     if(token.type === ETokenType.NUMBER){
