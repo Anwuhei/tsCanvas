@@ -28,7 +28,7 @@ class Doom3Token implements IDoom3Token{
             return false
         }
         for(let i:number=0;i<count;i++){
-            if(this._charArr[i]!==str[i]) return false;ßß
+            if(this._charArr[i]!==str[i]) return false;
         }
         return true;
     }
@@ -68,7 +68,7 @@ class Doom3Tokenizer implements IDoom3Tokenizer{
         let c:string = ""
         do{
             c=this._getChar()
-        }while(c.length>0&&this._skipWhitespace(c))
+        }while(c.length>0 && this._isWhitespace( c ))
         return c;
     }
     private _skipComments0():string{
@@ -157,7 +157,7 @@ class Doom3Tokenizer implements IDoom3Tokenizer{
         do{
             token.addChar(c)
             if(!this._isSpecialChar(c)){c=this._getChar()}
-        }while(c.length>0&&!this._skipWhitespace(c)&&!this._isSpecialChar(c))
+        }while(c.length>0&&!this._isWhitespace(c)&&!this._isSpecialChar(c))
     }
     public setSource(source:string):void{
         this._source = source
