@@ -7,12 +7,13 @@ export interface IDoom3Token{
     getFloat():number;
     getInt():number;
 }
-export interface IDoom3Tokenizer{
-    setSource(source:string):void;
-    reset():void;
-    getNextToken(token:IDoom3Token):boolean;
+export interface IDoom3Tokenizer extends IEnumerator<IDoom3Token>{
+    setSource(source:string):void
+    createIDoom3Token():IDoom3Token
+    reset():void
+    getNextToken(token:IDoom3Token):boolean
 }
-class IDoom3Token{
+class Doom3Token implements IDoom3Token{
     private _type!:ETokenType;
     private _charArr:string[]=[]
     private _val!:number;
@@ -20,6 +21,16 @@ class IDoom3Token{
         this._charArr.length=0
         this._type=ETokenType.NONE
         this._val=0.0
+    }
+    public isString(str:string):boolean{
+        let count:number = this._charArr.length
+        if(str.length != count){
+            return false
+        }
+        for(let i:number=0;i<count;i++){
+            if(this._charArr[i]!==str[i]) return false;ßß
+        }
+        return true;
     }
     public get type():ETokenType{
         return this._type;
@@ -32,27 +43,6 @@ class IDoom3Token{
     }
     public getInt():number{
         return parseInt(this._val.toString(),10)
-    }
-    public isString(str:string):boolean{
-        let count:number = this._charArr.length
-        if(str.length != count){
-            return false
-        }
-        for(let i:number=0;i<count;i++){
-            if(this._charArr[i]!==str[i]) return false;ßß
-        }
-        return true;
-    }
-    
-}
-class Doom3Token implements IDoom3Token{
-    private _type!:ETokenType;
-    private _charArr:string[]=[] //_charArray:Array<string>=new Array<string>
-    private _val!:number;
-    public constructor(){
-        this._charArr.length=0
-        this._type=ETokenType.NONE
-        this._val=0.0
     }
     public reset():void{
         this._charArr.length=0
@@ -70,7 +60,8 @@ class Doom3Token implements IDoom3Token{
         this._type=type
     }
 }
-export class IDoom3Tokenizer{
+
+class Doom3Tokenizer implements IDoom3Tokenizer{
     private _source:string = "Doom3Tokenizer"
     private _currIdx:number = 0
     private _skipWhitespace():string {
@@ -103,14 +94,14 @@ export class IDoom3Tokenizer{
         let c:string=this._getChar()
         let isNegate:boolean=(c==='-')
         let consumed:boolean=false
-        let ascii0 = "0"
+        let ascii0 = "0".charCodeAt(0)
         do{
             token.addChar(c)
             if(c==='.'){
                 isFloat = true
             }else if(c!=='-'){
                 let ascii:number = c.charCodeAt(0)
-                let vc:number = (ascii=ascii0)
+                let vc:number = (ascii-ascii0)
                 if(!isFloat){
                     val = 10*val+vc
                 }else{
@@ -125,7 +116,7 @@ export class IDoom3Tokenizer{
             }
             c=this._peekChar()
             consumed=true
-        }while(c.length>0&&(this.isDigit(c)||(!isFloat&&c==='.')))
+        }while(c.length>0&&(this._isDigit(c)||(!isFloat&&c==='.')))
         if(isNegate){val =- val}
         token.setVal(val)
     }
@@ -199,8 +190,8 @@ export class IDoom3Tokenizer{
         }while(c.length>0)
             return false
     }
-}
-class Doom3Tokenizer implements IDoom3Tokenizer{
+
+    private _whiteSpaces : string [ ] = [ " " , "\t" , "\v" , "\n" , "\r" ] ;
     private _current:IDoom3Token=new Doom3Token()
     private _digits:string[]=["0","1","2","3","4","5","6","7","8","9"]
     private _isDigit(c:string):boolean{
@@ -211,9 +202,8 @@ class Doom3Tokenizer implements IDoom3Tokenizer{
     }
     private _isWhitespace(c:string):boolean{
         for(let i:number=0;i<this._whiteSpaces.length;i++){
-            if(c===this._whiteSpaces[i]) return true
-            return false
-        }
+            if(c===this._whiteSpaces[i]) return true 
+        }return false
     }
    
     private _getChar():string{
@@ -239,32 +229,17 @@ class Doom3Tokenizer implements IDoom3Tokenizer{
     public get current():IDoom3Token{
         return this._current
     }
+    public createIDoom3Token(): IDoom3Token {
+        return new Doom3Token()
+    }
 }
 export class Doom3Factory{
     public static createDoom3Tokenizer():IDoom3Tokenizer{
-        let ret:IDoom3Tokenizer=new Doom3Tokenizer()
-        return ret;
-    }
-}
-export interface IDoom3Tokenizer{
-    createIDoom3Token():IDoom3Token
-    setSource(source:string):void
-    reset():void
-    getNextToken(token:IDoom3Token):boolean
-}
-class Doom3Tokenizer implements IDoom3Tokenizer{
-    public createIDoom3Token(): IDoom3Token {
-        return new Doom3Token()
+        return new Doom3Tokenizer()
     }
 }
 export interface IEnumerator<T>{
     reset():void
     moveNext():boolean
     readonly current:T
-}
-export interface IDoom3Tokenizer extends IEnumerator<IDoom3Token>{
-    setSource(source:string):void
-    createIDoom3Token():IDoom3Token
-    reset():void
-    getNextToken(token:IDoom3Token):boolean
 }
