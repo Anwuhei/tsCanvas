@@ -1,4 +1,4 @@
-import { ETokenType } from "./IDoom3Tokenizer"
+/*import { ETokenType } from "./IDoom3Tokenizer"
 
 export class HttpRequest{
     public static doGet(url:string):HttpResponse{
@@ -32,7 +32,7 @@ if(response.success===true){
 }
 /**
  * static doGetAsync
- */
+ *//*
 public static doGetAsync(url:string,callback:(response:HttpResponse)=>void,responseType:XMLHttpRequestResponseType="text"):void {
     let xhr:XMLHttpRequest = new XMLHttpRequest()
     xhr.responseType=responseType
@@ -47,4 +47,4 @@ public static doGetAsync(url:string,callback:(response:HttpResponse)=>void,respo
     }
     xhr.open("get",URL,true,null,null)
     xhr.send()
-}
+}*/

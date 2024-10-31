@@ -1,10 +1,16 @@
 {
-  "name":"tsCanvas",
-  "version":"0.1.0",
-  "description":"",
-  "main":"main.js",
+  "name": "webpack-ts-canvas",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.js",
   "dependencies": {
-    "systemjs": "^6.15.1",
     "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^5.6.3",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   }
 }
