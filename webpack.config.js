@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // webpack中的所有配置信息都写在 module.exports 里。
 // 这个配置对象包含了诸如入口文件、输出设置、加载器规则、插件等信息，用于告诉 Webpack 如何构建项目。
 module.exports = {
-    mode:'development',
+  mode:'development',
   // 指定入口文件
   entry: './src/main.ts',
 
