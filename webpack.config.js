@@ -36,6 +36,11 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
+  devServer:{
+    //liveReload替换hot进行热更新
+    liveReload:true,
+    port:9000
+  },
   plugins:[
     new HtmlWebpackPlugin(
         {template:'./index.html'}
